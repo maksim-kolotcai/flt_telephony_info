@@ -11,9 +11,8 @@ class MyApp extends StatelessWidget {
             title: const Text('Plugin example app'),
           ),
           body: Center(
-            child: FutureBuilder<TelephonyInfo>(
-              builder: (context, snapshot) =>
-                  Text('Phone Number: ${snapshot.data?.line1Number}\n'),
+            child: FutureBuilder<TelephonyInfo?>(
+              builder: (context, snapshot) => Text('Phone Number: ${snapshot.data?.line1Number}\n'),
               future: FltTelephonyInfo.info,
             ),
           ),

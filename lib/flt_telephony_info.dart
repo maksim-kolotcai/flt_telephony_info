@@ -1,15 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class FltTelephonyInfo {
-  static const MethodChannel _channel =
-      const MethodChannel('bughub.dev/flt_telephony_info');
+  static const MethodChannel _channel = const MethodChannel('bughub.dev/flt_telephony_info');
 
-  static Future<TelephonyInfo> get info async {
-
-    final TelephonyInfo telephonyInfo =
+  static Future<TelephonyInfo?> get info async {
+    final TelephonyInfo? telephonyInfo =
         TelephonyInfo.fromMap(await _channel.invokeMapMethod<String, dynamic>('getTelephonyInfo'));
 
     return telephonyInfo;
@@ -213,7 +210,11 @@ class TelephonyInfo {
   final String? simOperatorName;
   final String? simSerialNumber;
 
-  static TelephonyInfo fromMap(Map<String, dynamic> map) {
+  static TelephonyInfo? fromMap(Map<String, dynamic>? map) {
+    if (map == null) {
+      return null;
+    }
+
     return TelephonyInfo._(
       callState: map["callState"],
       dataNetworkType: map["dataNetworkType"],
